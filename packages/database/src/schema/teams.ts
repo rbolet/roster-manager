@@ -16,6 +16,7 @@ export const teams = pgTable(
       .notNull()
       .references((): PgColumn => leagues.id as PgColumn),
     name: varchar('name', { length: 100 }).notNull(),
+    color: varchar('color', { length: 50 }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
     deletedAt: timestamp('deleted_at'), // Soft delete support

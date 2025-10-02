@@ -3,8 +3,8 @@ import {
   uuid,
   varchar,
   text,
-  integer,
   boolean,
+  integer,
   timestamp,
   uniqueIndex,
   type PgColumn,
@@ -13,21 +13,18 @@ import { sql } from 'drizzle-orm';
 import { users } from './users';
 
 /**
- * Divisions table schema
- * Defines sport divisions with their rules and constraints
+ * Formations table schema
+ * Defines team formations/tactics
  * Supports soft deletion via deletedAt timestamp
  */
-export const divisions = pgTable(
-  'divisions',
+export const formations = pgTable(
+  'formations',
   {
     id: uuid('id').primaryKey().defaultRandom(),
     name: varchar('name', { length: 100 }).notNull(),
     description: text('description'),
-    playersCount: integer('players_count').notNull(),
-    maxPlayersOnRoster: integer('max_players_on_roster').notNull(),
     noGoalkeepers: boolean('no_goalkeepers').notNull().default(false),
-    gameDuration: integer('game_duration').notNull(),
-    gamePeriodsCount: integer('game_periods_count'),
+    playersCount: integer('players_count').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
     deletedAt: timestamp('deleted_at'), // Soft delete support
@@ -37,12 +34,12 @@ export const divisions = pgTable(
   },
   (table) => [
     // Partial unique index: only enforce uniqueness for non-deleted records
-    uniqueIndex('divisions_name_idx')
+    uniqueIndex('formations_name_idx')
       .on(sql`lower(${table.name})`)
       .where(sql`${table.deletedAt} IS NULL`),
   ]
 );
 
 // Type inference
-export type Division = typeof divisions.$inferSelect;
-export type NewDivision = typeof divisions.$inferInsert;
+export type Formation = typeof formations.$inferSelect;
+export type NewFormation = typeof formations.$inferInsert;

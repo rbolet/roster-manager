@@ -2,32 +2,29 @@ import {
   pgTable,
   uuid,
   varchar,
-  text,
   integer,
-  boolean,
   timestamp,
   uniqueIndex,
   type PgColumn,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { teams } from './teams';
 import { users } from './users';
 
 /**
- * Divisions table schema
- * Defines sport divisions with their rules and constraints
+ * Players table schema
+ * Defines players on teams
  * Supports soft deletion via deletedAt timestamp
  */
-export const divisions = pgTable(
-  'divisions',
+export const players = pgTable(
+  'players',
   {
     id: uuid('id').primaryKey().defaultRandom(),
+    teamId: uuid('team_id')
+      .notNull()
+      .references((): PgColumn => teams.id as PgColumn),
     name: varchar('name', { length: 100 }).notNull(),
-    description: text('description'),
-    playersCount: integer('players_count').notNull(),
-    maxPlayersOnRoster: integer('max_players_on_roster').notNull(),
-    noGoalkeepers: boolean('no_goalkeepers').notNull().default(false),
-    gameDuration: integer('game_duration').notNull(),
-    gamePeriodsCount: integer('game_periods_count'),
+    jerseyNumber: integer('jersey_number').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
     deletedAt: timestamp('deleted_at'), // Soft delete support
@@ -36,13 +33,13 @@ export const divisions = pgTable(
     deletedBy: uuid('deleted_by').references((): PgColumn => users.id as PgColumn),
   },
   (table) => [
-    // Partial unique index: only enforce uniqueness for non-deleted records
-    uniqueIndex('divisions_name_idx')
-      .on(sql`lower(${table.name})`)
+    // Partial unique index: prevent duplicate jersey numbers within same team for active records
+    uniqueIndex('players_team_jersey_idx')
+      .on(table.teamId, table.jerseyNumber)
       .where(sql`${table.deletedAt} IS NULL`),
   ]
 );
 
 // Type inference
-export type Division = typeof divisions.$inferSelect;
-export type NewDivision = typeof divisions.$inferInsert;
+export type Player = typeof players.$inferSelect;
+export type NewPlayer = typeof players.$inferInsert;
