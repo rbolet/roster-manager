@@ -20,6 +20,7 @@ export enum PositionType {
   MIDFIELD = 'MIDFIELD',
   DEFENSE = 'DEFENSE',
   GK = 'GK',
+  BENCH = 'BENCH',
 }
 
 /**
