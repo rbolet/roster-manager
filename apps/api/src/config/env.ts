@@ -1,9 +1,13 @@
 import { z } from 'zod';
+import { config } from 'dotenv';
 
 /**
  * Environment variable schema and validation
  * Ensures all required environment variables are present and valid
  */
+
+// Load .env file
+config();
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
