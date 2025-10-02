@@ -1,17 +1,26 @@
-import { pgTable, uuid, varchar, timestamp, uniqueIndex, type PgColumn } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  uuid,
+  varchar,
+  text,
+  timestamp,
+  uniqueIndex,
+  type PgColumn,
+} from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { users } from './users';
 
 /**
- * Users table schema
+ * Roles table schema
+ * Defines user roles (e.g., admin, manager, member)
  * Supports soft deletion via deletedAt timestamp
  */
-export const users = pgTable(
-  'users',
+export const roles = pgTable(
+  'roles',
   {
     id: uuid('id').primaryKey().defaultRandom(),
-    email: varchar('email', { length: 255 }).notNull(),
     name: varchar('name', { length: 100 }).notNull(),
-    passwordHash: varchar('password_hash', { length: 255 }).notNull(),
+    description: text('description'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
     deletedAt: timestamp('deleted_at'), // Soft delete support
@@ -21,13 +30,13 @@ export const users = pgTable(
   },
   (table) => [
     // Partial unique index: only enforce uniqueness for non-deleted records
-    // This allows the same email to be reused after soft deletion
-    uniqueIndex('users_email_idx')
-      .on(sql`lower(${table.email})`)
+    // This allows the same role name to be reused after soft deletion
+    uniqueIndex('roles_name_idx')
+      .on(sql`lower(${table.name})`)
       .where(sql`${table.deletedAt} IS NULL`),
   ]
 );
 
 // Type inference
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
+export type Role = typeof roles.$inferSelect;
+export type NewRole = typeof roles.$inferInsert;
