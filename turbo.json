@@ -1,16 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^build", "type-check"],
       "outputs": ["dist/**", "build/**", ".next/**", "out/**"],
-      "env": [
-        "NODE_ENV",
-        "VITE_API_URL",
-        "DATABASE_URL",
-        "JWT_SECRET"
-      ]
+      "env": ["NODE_ENV", "VITE_API_URL", "DATABASE_URL", "JWT_SECRET"]
     },
     "dev": {
       "cache": false,
