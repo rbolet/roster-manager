@@ -13,7 +13,7 @@ async function start(): Promise<void> {
       host: env.HOST,
     });
 
-    console.log(`🚀 Server listening at http://${env.HOST}:${env.PORT}`);
+    console.log(`🚀 Server listening at http://${env.HOST}:${env.PORT.toString()}`);
   } catch (err) {
     console.error('❌ Error starting server:', err);
     process.exit(1);
@@ -31,4 +31,4 @@ process.on('SIGTERM', () => {
   process.exit(0);
 });
 
-start();
+void start();

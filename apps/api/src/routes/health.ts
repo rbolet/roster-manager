@@ -3,8 +3,8 @@ import type { FastifyInstance } from 'fastify';
 /**
  * Health check routes
  */
-export async function healthRoutes(app: FastifyInstance): Promise<void> {
-  app.get('/health', async () => {
+export function healthRoutes(app: FastifyInstance): void {
+  app.get('/health', () => {
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
@@ -12,7 +12,7 @@ export async function healthRoutes(app: FastifyInstance): Promise<void> {
     };
   });
 
-  app.get('/health/ready', async () => {
+  app.get('/health/ready', () => {
     // Add database connectivity check here
     return {
       status: 'ready',

@@ -27,7 +27,7 @@ export function registerServiceWorker(): void {
       window.location.reload();
     });
 
-    wb.register().catch((error) => {
+    wb.register().catch((error: unknown) => {
       console.error('Service worker registration failed:', error);
     });
   }

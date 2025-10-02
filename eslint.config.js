@@ -6,6 +6,7 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -44,6 +45,10 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-non-null-assertion': 'error',
     },
+  },
+  {
+    files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked,
   },
   {
     ignores: [

@@ -3,6 +3,8 @@
  * Loose coupling: Can swap implementation without changing components
  */
 
+import { isPlainObject } from '@roster-manager/utils';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export class ApiError extends Error {
@@ -16,30 +18,28 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(
-  endpoint: string,
-  options?: RequestInit
-): Promise<T> {
+async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
+
+  const headers = options?.headers;
+  const headersObject = isPlainObject(headers) ? headers : {};
 
   const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...options?.headers,
+      ...headersObject,
     },
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: response.statusText }));
-    throw new ApiError(
-      error.message || 'An error occurred',
-      response.status,
-      error
-    );
+    const error = (await response.json().catch(() => ({ message: response.statusText }))) as {
+      message?: string;
+    };
+    throw new ApiError(error.message ?? 'An error occurred', response.status, error);
   }
 
-  return response.json();
+  return response.json() as Promise<T>;
 }
 
 export const apiClient = {

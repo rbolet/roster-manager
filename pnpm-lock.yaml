@@ -65,9 +65,15 @@ importers:
       '@roster-manager/database':
         specifier: workspace:*
         version: link:../../packages/database
+      drizzle-orm:
+        specifier: ^0.36.0
+        version: 0.36.4(@types/pg@8.15.5)(@types/react@18.3.25)(postgres@3.4.7)(react@18.3.1)
       fastify:
         specifier: ^5.0.0
         version: 5.6.1
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.7
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -93,6 +99,9 @@ importers:
       '@roster-manager/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@roster-manager/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tanstack/react-query':
         specifier: ^5.59.0
         version: 5.90.2(react@18.3.1)
@@ -194,6 +203,15 @@ importers:
         version: 5.9.3
 
   packages/tsconfig: {}
+
+  packages/utils:
+    devDependencies:
+      '@roster-manager/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
 
 packages:
 

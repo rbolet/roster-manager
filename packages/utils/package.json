@@ -1,0 +1,21 @@
+{
+  "name": "@roster-manager/utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@roster-manager/tsconfig": "workspace:*",
+    "typescript": "^5.7.3"
+  }
+}
