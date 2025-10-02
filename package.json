@@ -41,6 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@eslint/js": "^9.36.0",
     "@playwright/test": "^1.48.0",
     "@types/node": "^22.7.5",
     "eslint": "^9.12.0",
