@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    // Essential
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+
+    // TypeScript
+    "yoavbls.pretty-ts-errors",
+
+    // Git
+    "eamodio.gitlens",
+
+    // Testing
+    "vitest.explorer",
+    "ms-playwright.playwright",
+
+    // Database
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+
+    // Utilities
+    "christian-kohler.path-intellisense",
+    "usernamehw.errorlens",
+    "gruntfuggly.todo-tree"
+  ]
+}
