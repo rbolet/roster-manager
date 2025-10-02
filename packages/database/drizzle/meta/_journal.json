@@ -15,6 +15,13 @@
       "when": 1759440981524,
       "tag": "0001_closed_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759442453904,
+      "tag": "0002_uneven_glorian",
+      "breakpoints": true
     }
   ]
 }

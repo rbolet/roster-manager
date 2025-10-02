@@ -33,6 +33,7 @@ export const positions = pgTable(
   {
     id: uuid('id').primaryKey().defaultRandom(),
     name: varchar('name', { length: 100 }).notNull(),
+    abbreviation: varchar('abbreviation', { length: 10 }).notNull(),
     description: text('description'),
     positionType: varchar('position_type', { length: 20 }).notNull(), // ATTACK, MIDFIELD, DEFENSE, GK - validate at app level
     createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -46,6 +47,10 @@ export const positions = pgTable(
     // Partial unique index: only enforce uniqueness for non-deleted records
     uniqueIndex('positions_name_idx')
       .on(sql`lower(${table.name})`)
+      .where(sql`${table.deletedAt} IS NULL`),
+    // Partial unique index: abbreviations must be unique for non-deleted records
+    uniqueIndex('positions_abbreviation_idx')
+      .on(sql`lower(${table.abbreviation})`)
       .where(sql`${table.deletedAt} IS NULL`),
   ]
 );

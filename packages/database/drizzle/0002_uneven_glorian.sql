@@ -1,0 +1,2 @@
+ALTER TABLE "positions" ADD COLUMN "abbreviation" varchar(10) NOT NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "positions_abbreviation_idx" ON "positions" USING btree (lower("abbreviation")) WHERE "positions"."deleted_at" IS NULL;
