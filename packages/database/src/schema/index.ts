@@ -20,3 +20,5 @@ export * from './formations';
 export * from './team-formations';
 export * from './positions';
 export * from './formation-positions';
+export * from './game-formations';
+export * from './game-period-assignments';
