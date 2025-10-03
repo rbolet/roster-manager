@@ -13,7 +13,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(3001),
   HOST: z.string().default('0.0.0.0'),
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.url(),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.string().default('15m'),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
@@ -24,7 +24,7 @@ const envSchema = z.object({
 const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {
-  console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
+  console.error('❌ Invalid environment variables:', z.treeifyError(parsed.error));
   throw new Error('Invalid environment variables');
 }
 
