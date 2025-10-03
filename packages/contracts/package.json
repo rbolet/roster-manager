@@ -16,7 +16,8 @@
     "clean": "rm -rf dist *.tsbuildinfo"
   },
   "dependencies": {
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-openapi": "^5.4.2"
   },
   "devDependencies": {
     "@roster-manager/tsconfig": "workspace:*",

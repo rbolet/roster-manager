@@ -19,13 +19,16 @@
     "@fastify/helmet": "^12.0.1",
     "@fastify/jwt": "^9.0.1",
     "@fastify/rate-limit": "^10.1.1",
+    "@fastify/swagger": "^9.5.2",
+    "@fastify/swagger-ui": "^5.2.3",
     "@roster-manager/contracts": "workspace:*",
     "@roster-manager/database": "workspace:*",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.36.0",
     "fastify": "^5.0.0",
+    "fastify-type-provider-zod": "^6.0.0",
     "postgres": "^3.4.4",
-    "zod": "^3.23.8"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@roster-manager/tsconfig": "workspace:*",

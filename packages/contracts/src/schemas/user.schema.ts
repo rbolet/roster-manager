@@ -1,17 +1,17 @@
 import { z } from 'zod';
 
 /**
- * Example user schema - demonstrates the pattern for defining API contracts
- * This schema is shared between frontend and backend
+ * User schema definitions with OpenAPI documentation
+ * Shared between frontend and backend for type safety
  */
 
 // Base user schema
 export const userSchema = z.object({
-  id: z.string().uuid(),
-  email: z.string().email(),
-  name: z.string().min(1).max(100),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  id: z.string().uuid().describe('Unique user identifier'),
+  email: z.string().email().describe('User email address'),
+  name: z.string().min(1).max(100).describe('User full name (1-100 characters)'),
+  createdAt: z.date().describe('User creation timestamp'),
+  updatedAt: z.date().describe('Last update timestamp'),
 });
 
 // Schema for creating a user (no id, timestamps)
